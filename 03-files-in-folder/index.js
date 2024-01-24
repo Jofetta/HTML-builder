@@ -7,12 +7,12 @@ const folder = path.join(__dirname, '/secret-folder');
 fs.promises.readdir(folder, { withFileTypes: true })
   .then(filenames => {
     for (let filename of filenames) {
-      if (filename.isFile) {
+      if (filename.isFile()) {
         let filePath = path.join(__dirname, '/secret-folder', filename.name);
         fs.stat(`${filePath}`, (error, stats) => {
           if (error) {
             console.log(error);
-          } else if (stats.isFile && stats.size !== 0) {
+          } else if (stats.isFile()) {
             let output = filename.name.split('.').join(' - ');
             console.log(`${output} - ${stats.size}b`);
           }
